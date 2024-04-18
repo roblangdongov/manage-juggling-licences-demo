@@ -1,6 +1,7 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Applications" %}
+{% set pageName = "Applications" %}
+{% set primaryNavId = 'applications' %}
 
 {% block content %}
 
@@ -38,7 +39,7 @@
                   text: "Sent date"
                 },
                 value: {
-                  text: "17 April 2024"
+                  text: application.sentDate | govukDateTime
                 }
               }
             ]

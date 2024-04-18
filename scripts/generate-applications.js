@@ -8,6 +8,16 @@ const generateApplication = () => {
     // Application ID
     application.id = "" + faker.number.int({ min: 123456, max: 999999 })
 
+    let now = new Date().toISOString()
+
+    application.sentDate = faker.date.recent({ days: 21 })
+
+    application.status = faker.helpers.arrayElement([
+        'Received',
+        'Approved',
+        'Rejected'
+    ])
+
     // Personal details
     application.personalDetails = {}
     application.personalDetails.firstName = faker.person.firstName()
