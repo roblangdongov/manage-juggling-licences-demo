@@ -4,6 +4,12 @@
 {% set primaryNavId = 'applications' %}
 
 {% block content %}
+  
+  {{ govukNotificationBanner({
+    type: "success",
+    html: '<h2 class="govuk-heading-m">' + flash + '</h2>'
+  }) if flash.length }}
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
@@ -16,11 +22,27 @@
         }) }}
       </h1>
 
+      {% if application.status == 'Received' %}
+        <div class="govuk-button-group">
+        {{ govukButton({
+          text: "Approve",
+          href: "/applications/" + application.id + "/approve/"
+        }) }}
+        {{ govukButton({
+          text: "Reject",
+          href: "/applications/" + application.id + "/reject/",
+          classes: "govuk-button--secondary"
+        }) }}
+        </div>
+      {% endif %}
+
       {% if application.status == 'Approved' %}
         <p>Application approved on {{application.approvedDate | govukDateTime}}</p>
-      {% elseif application.status == 'Rejected' %}
-        <p>Application rejected on {{application.rejectedDate | govukDateTime}}</p>
       {% endif %}
+
+      {% if application.status == 'Rejected' %}
+        <p>Application rejected on {{application.rejectedDate | govukDateTime}}</p>
+      {% endif %}      
 
       <h2 class="govuk-heading-m">Application details</h2>
 
