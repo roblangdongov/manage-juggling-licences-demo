@@ -4,7 +4,23 @@
 {% set primaryNavId = 'applications' %}
 
 {% block content %}
-  
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">{{application.id}}</span>
+      <h1 class="govuk-heading-l">
+        {{ pageName }}
+        {{ govukTag({
+          text: application.status,
+          classes: application.status | statusColour
+        }) }}
+      </h1>
+
+      {% if application.status == 'Approved' %}
+        <p>Application approved on {{application.approvedDate | govukDateTime}}</p>
+      {% elseif application.status == 'Rejected' %}
+        <p>Application rejected on {{application.rejectedDate | govukDateTime}}</p>
+      {% endif %}
 
       <h2 class="govuk-heading-m">Application details</h2>
 

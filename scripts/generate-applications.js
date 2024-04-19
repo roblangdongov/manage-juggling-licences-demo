@@ -18,6 +18,19 @@ const generateApplication = () => {
         'Rejected'
     ])
 
+    if(application.status == 'Rejected') {
+        application.rejectedDate = faker.date.between({
+            from: application.sentDate,
+            to: now
+        })
+    }
+    if(application.status == 'Approved') {
+        application.approvedDate = faker.date.between({
+            from: application.sentDate,
+            to: now
+        })
+    }
+        
     // Personal details
     application.personalDetails = {}
     application.personalDetails.firstName = faker.person.firstName()
