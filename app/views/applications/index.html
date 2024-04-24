@@ -5,9 +5,7 @@
 
 {% block content %}
 
-    
-
-    <h1 class="govuk-heading-l">
+  <h1 class="govuk-heading-l">
       {{ pageName }}
     </h1>
 
@@ -18,52 +16,82 @@
     <div class="app-filter-layout__content">
 
       {% include "_includes/search-form.njk" %}
-
   
     <div class="app-action-bar">
       <div class="app-action-bar__filter"></div>
     </div>
 
-    <div class="app-list">
-      {% for application in applications %}
-        <div class="app-list__item">
-          <h2 class="govuk-heading-m">
-            <a href="/applications/{{application.id}}">
-              {{application.personalDetails.firstName}}
-              {{application.personalDetails.lastName}}
-            </a>
-          </h2>
+    {% if applications.length %}
 
-          {{ govukTag({
-            text: application.status,
-            classes: application.status | statusColour
-          }) }}
+      <div class="app-list">
+        {% for application in applications %}
+          <div class="app-list__item">
+            <h2 class="govuk-heading-m">
+              <a href="/applications/{{application.id}}">
+                {{application.personalDetails.firstName}}
+                {{application.personalDetails.lastName}}
+              </a>
+            </h2>
 
-          {{ govukSummaryList({
-            classes: "govuk-summary-list--no-border",
-            rows: [
-              {
-                key: {
-                  text: "Email address"
+            {{ govukTag({
+              text: application.status,
+              classes: application.status | statusColour
+            }) }}
+
+            {{ govukSummaryList({
+              classes: "govuk-summary-list--no-border",
+              rows: [
+                {
+                  key: {
+                    text: "Email address"
+                  },
+                  value: {
+                    text: application.personalDetails.emailAddress
+                  }
                 },
-                value: {
-                  text: application.personalDetails.emailAddress
+                {
+                  key: {
+                    text: "Sent date"
+                  },
+                  value: {
+                    text: application.sentDate | govukDateTime
+                  }
                 }
-              },
-              {
-                key: {
-                  text: "Sent date"
-                },
-                value: {
-                  text: application.sentDate | govukDateTime
-                }
-              }
-            ]
-          }) }}
-        </div>
+              ]
+            }) }}
+          </div>
 
-      {% endfor %}
-    </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>There are no results</p>
+    {% endif %}
+
+    {% include "_includes/pagination.njk" %}
+
+    {{ govukPagination({
+      previous: {
+        href: "#"
+      },
+      next: {
+        href: "#"
+      },
+      items: [
+        {
+          number: 1,
+          href: "#"
+        },
+        {
+          number: 2,
+          current: true,
+          href: "#"
+        },
+        {
+          number: 3,
+          href: "#"
+        }
+      ]
+    }) }}
 
 {% endblock %}
 
