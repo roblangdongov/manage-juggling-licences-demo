@@ -69,30 +69,6 @@
 
     {% include "_includes/pagination.njk" %}
 
-    {{ govukPagination({
-      previous: {
-        href: "#"
-      },
-      next: {
-        href: "#"
-      },
-      items: [
-        {
-          number: 1,
-          href: "#"
-        },
-        {
-          number: 2,
-          current: true,
-          href: "#"
-        },
-        {
-          number: 3,
-          href: "#"
-        }
-      ]
-    }) }}
-
 {% endblock %}
 
 {% block scripts %}

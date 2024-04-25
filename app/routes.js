@@ -16,6 +16,7 @@ router.all('*', (req, res, next) => {
 
 // Add your routes here
 require('./routes/account')(router)
+require('./routes/activity')(router)
 require('./routes/applications')(router)
 require('./routes/application--approve')(router)
 require('./routes/application--reject')(router)
